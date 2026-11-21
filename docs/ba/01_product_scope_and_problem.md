@@ -1,51 +1,58 @@
 # Product Scope & Problem Definition
 
-## Bối cảnh
-TravelGo định hướng hỗ trợ tổ chức chuyến du lịch nội địa Việt Nam. Thông tin điểm đến, lưu trú, ăn uống, lịch trình và chi phí có thể nằm rải rác ở nhiều công cụ.
+## Product concept
+TravelGo hỗ trợ người dùng khám phá, lập kế hoạch, phối hợp nhóm, đặt dịch vụ và quản lý tài chính cho chuyến du lịch. Trọng tâm khác biệt đề xuất: kết nối lịch trình – thành viên – ngân sách/quỹ trong một hành trình thống nhất.
 
-## Problem statement – đề xuất
-Người tổ chức chuyến đi nhóm cần một cách tập trung để xây dựng, điều chỉnh và chia sẻ lịch trình cùng ngân sách, vì hiện họ có thể phải tổng hợp thông tin từ nhiều nguồn, phối hợp ý kiến và theo dõi chi phí thủ công.
-**Trạng thái:** Assumption dựa trên nghiên cứu thứ cấp; cần xác thực qua phỏng vấn.
+## Problem statement – giả thuyết
+Người tổ chức chuyến đi phải tổng hợp địa điểm, lưu trú, di chuyển, lịch trình, ý kiến thành viên và tiền bạc từ nhiều nguồn/công cụ. Điều này làm tăng công sức điều phối, khó kiểm soát ngân sách và khó cập nhật khi kế hoạch thay đổi.
+**Trạng thái:** giả thuyết từ secondary research; cần phỏng vấn/kiểm thử primary research.
 
-## Nhóm người dùng ưu tiên – giả thuyết
-- Người 22–34 tuổi ở đô thị, thường tổ chức chuyến đi nội địa cùng bạn bè/cặp đôi.
-- Có vai trò lập kế hoạch/tổng hợp thông tin.
-- Chuyến 2–4 ngày là giả thuyết cần xác thực.
-- Early adopter: người đang dùng nhiều công cụ rời rạc để lập lịch.
+## Product vision – đề xuất
+Giúp nhóm bạn và gia đình khám phá, thống nhất và thực hiện chuyến đi phù hợp sở thích/ngân sách, giảm việc chuyển qua lại giữa nhiều công cụ.
 
-## JTBD – giả thuyết
-Khi nhóm đã quyết định đi du lịch, người tổ chức muốn tạo lịch trình và ngân sách nháp có thể cùng chỉnh sửa, để giảm công sức tổng hợp và giúp cả nhóm thống nhất.
+## Personas/JTBD
+Proto-persona và JTBD trong các tài liệu Discovery trước đây là giả định, không phải persona đã xác thực. Cần kiểm tra với người tổ chức chuyến đi, thành viên, gia đình và người đặt dịch vụ.
 
-## Product Goal – đề xuất
-Giúp người tổ chức tạo và chia sẻ kế hoạch chuyến đi nội địa có lịch trình theo ngày và ngân sách dự kiến.
+## Scope theo phase
+### MVP – đề xuất
+- Account/profile; tạo chuyến và mời thành viên.
+- Discovery địa điểm/nhà hàng/vui chơi từ provider được duyệt; tìm kiếm, lọc, xem chi tiết, lưu yêu thích.
+- Lịch trình theo ngày, thêm địa điểm vào lịch; bản đồ cơ bản nếu provider/cost cho phép.
+- Ngân sách dự kiến, quỹ nhóm và ghi nhận góp/chi thủ công.
+- Chia hóa đơn cơ bản và tính số dư/công nợ.
+- Vote đơn giản cho địa điểm/lịch trình.
+- Notification trong app cơ bản.
+- AI tạo bản nháp lịch trình; người dùng phải review trước khi lưu.
 
-## North Star Metric – đề xuất
-Số chuyến đi có lịch trình được hoàn thiện và có ít nhất hai thành viên cùng tham gia trong kỳ đo lường.
-Chỉ số phụ: tỷ lệ chuyến lưu lịch trình đầu tiên; thời gian trung vị từ tạo chuyến tới lưu lịch; tỷ lệ chuyến có thành viên được mời; tỷ lệ mục lịch trình được thêm/sửa/hoàn thành.
-Target cần PO xác nhận sau baseline.
+### Phase 2 – đề xuất
+- Tìm khách sạn và luồng booking affiliate/deep-link.
+- Đặt trong app qua booking provider/API/contract đủ điều kiện; không tự giả định có inventory.
+- QR chuyển khoản và đối soát phù hợp năng lực provider.
+- Admin Web quản trị hệ thống đầy đủ.
+- Offline trip, travel journal, location sharing opt-in, image search.
+- Notification nâng cao, booking status sync.
 
-## MVP đề xuất
-### In scope
-1. Đăng ký/đăng nhập cơ bản.
-2. Tạo, xem, sửa chuyến đi.
-3. Điểm đến, ngày đi/về, ngân sách dự kiến.
-4. Lịch trình theo ngày.
-5. Thêm/sửa/xóa/sắp xếp hoạt động.
-6. Chọn địa điểm từ nguồn dữ liệu đã thống nhất.
-7. Chia sẻ/mời thành viên theo mô hình quyền được duyệt.
-8. Ghi nhận chi phí cơ bản nếu đủ capacity.
-9. AI tạo bản nháp lịch trình nếu có API, ngân sách và kiểm soát chất lượng.
+### Phase 3 – đề xuất
+- Mở rộng payment gateway, refund/reconciliation tự động.
+- AI travel assistant toàn diện, tối ưu tuyến đường/ngân sách và đề xuất thay thế.
+- Booking/transportation integrations mở rộng, analytics nâng cao, community/reviews có kiểm duyệt.
 
-### Deferred / out of scope
-- Bán vé/thu tiền đặt phòng trực tiếp.
-- Cam kết giá/phòng trống thời gian thực khi chưa có API/đối tác.
-- Xử lý hủy/hoàn phòng và khiếu nại.
-- Review xác thực nếu chưa có cơ chế xác minh.
-- Community feed đầy đủ.
+## Out of scope cho tới khi có quyết định
+- TravelGo tự nắm giữ tiền/vận hành ví điện tử.
+- Cam kết phòng trống/giá thực nếu không có API/contract.
+- Tự xác minh review khi không có nguồn đáng tin.
+- Chia sẻ vị trí nền liên tục mặc định.
+- AI tự đặt dịch vụ hoặc tự thanh toán mà không có xác nhận rõ ràng.
 
-## Tiêu chí thành công sơ bộ
-- Người mới tạo được chuyến và lịch trình không cần trợ giúp.
-- Hiểu ngân sách dự kiến và chi phí đã nhập.
-- Thành viên chỉ truy cập theo quyền.
-- Không truy cập chéo chuyến riêng tư.
-- Target số cần chốt sau usability test.
+## Success metrics – cần PO đặt target
+- Activation: tỷ lệ user tạo trip và lưu itinerary đầu tiên.
+- Collaboration: tỷ lệ trip có ít nhất 2 thành viên hoạt động.
+- Planning: thời gian từ tạo trip đến lưu lịch trình.
+- Finance: tỷ lệ khoản chi có người trả và phân bổ rõ.
+- Discovery: tỷ lệ place detail → add to itinerary.
+- Booking: click-out/conversion hoặc booking success theo provider.
+- Quality: crash-free sessions, lỗi sync, AI draft acceptance/edit rate.
+Không đặt target số khi chưa có baseline.
+
+## Product decisions
+Định hướng tính năng đã được user chọn trong hội thoại; chi tiết business model, provider, payment/legal, MVP capacity và target vẫn cần PO/Tech Lead xác nhận.

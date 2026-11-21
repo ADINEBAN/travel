@@ -1,12 +1,17 @@
 # Requirements Traceability Matrix
 
-| User need | BR | FR | User Story | Acceptance/Test | Status |
-|---|---|---|---|---|---|
-| Tập trung kế hoạch | BR-01 | FR-TRIP-01..06 | US-02,03,04 | Trip CRUD | Proposed |
-| Lập lịch theo ngày | BR-01 | FR-ITN-01..06 | US-05,06 | Itinerary tests | Proposed |
-| Chia sẻ kế hoạch | BR-03 | FR-MEM-01..04 | US-07,08 | Invite/permission | Assumption |
-| Theo dõi ngân sách | BR-04 | FR-BUD-01..05 | US-09..12 | Budget/expense | Assumption |
-| Tìm địa điểm | BR-02 | FR-PLC-01..04 | US-13 | Provider/error | TBD |
-| AI bản nháp | BR-05 | FR-AI-01..05 | US-14 | Schema/guardrail | Assumption |
+| Goal / Epic | Requirements | Use cases | Backlog |
+|---|---|---|---|
+| Identity & access | FR-AUTH-01..02, FR-TRIP-02 | UC-01, UC-04 | US-01..04 |
+| Trip & itinerary | FR-TRIP-01, FR-ITN-01 | UC-01, UC-02 | US-02, US-07 |
+| Discovery | FR-PLC-01..04, FR-MAP-01 | UC-03 | US-05, US-06, US-15 |
+| Collaboration | FR-VOTE-01 | UC-04, UC-05 | US-03, US-08 |
+| Budget/fund/split | FR-BUD-01, FR-FUND-01..02, FR-SPLIT-01 | UC-06..08 | US-09..12 |
+| AI | FR-AI-01..03 | UC-09 | US-13, US-42..43 |
+| Notification | FR-NOTI-01 | UC-10 | US-14, US-32 |
+| Accommodation/booking | FR-ACC-01, FR-BOOK-01..03 | UC-11..13 | US-21..24 |
+| Payment | FR-PAY-01..03 | UC-14 | US-25..26, US-41 |
+| Admin | FR-ADMIN-01..04 | UC-19 | US-27 |
+| Offline/journal/location/image | FR-OFF-01, FR-JRN-01, FR-LOC-01, FR-IMG-01 | UC-15..18 | US-28..31 |
 
-Quy tắc: mỗi requirement có ID; mỗi story liên kết requirement; story Must có AC và Test; thay đổi phải cập nhật status/lý do.
+Traceability is provisional; IDs may be refined during PO refinement.

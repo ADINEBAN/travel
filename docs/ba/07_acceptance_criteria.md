@@ -1,44 +1,54 @@
-# Acceptance Criteria
+# Acceptance Criteria – Baseline
 
-## US-TRIP-01 Create Trip
-- Given đã đăng nhập và dữ liệu hợp lệ, When lưu, Then chuyến được tạo và hiển thị.
-- Given thiếu trường bắt buộc, When lưu, Then chỉ rõ lỗi.
-- Given ngày kết thúc trước ngày bắt đầu, When lưu, Then từ chối.
-- Given lỗi mạng, When lưu, Then báo thất bại, không báo thành công giả.
+Use Given/When/Then; QA should expand into positive, negative, boundary and permission tests.
 
-## US-ITN-01 Add Itinerary Item
-- Given user có quyền, When thêm hoạt động hợp lệ vào ngày của chuyến, Then hiển thị đúng ngày.
-- Given user không có quyền, When gửi yêu cầu, Then từ chối.
-- Given dữ liệu sai, When lưu, Then báo lỗi, không tạo bản ghi sai.
+## Trip & itinerary
+- Given authenticated user, when valid trip dates/details are submitted, then trip is created and linked to owner.
+- Given end date earlier than start date, when saving, then validation blocks save and explains the issue.
+- Given a user without edit permission, when changing itinerary, then server rejects the request.
+- Given a place result with source/fetched_at, when detail is shown, then source and freshness are visible where provided.
 
-## US-FUND-01 Create Fund
-- Given Owner có chuyến với >=2 thành viên, When nhập mức góp hợp lệ và xác nhận, Then quỹ tạo và gắn Organizer.
-- Given đã có quỹ active, When tạo quỹ khác, Then từ chối/yêu cầu xử lý quỹ hiện tại.
-- Given mức góp <=0, When lưu, Then báo lỗi.
+## Discovery
+- Given keyword/category/area, when user searches, then results match supported provider filters.
+- Given provider returns no results/error, then empty/error state and retry/fallback are shown.
+- Given result lacks rating/price/hours, then UI does not invent or imply those fields.
+- Given a user adds a place, then it is linked to the selected trip/day and remains editable.
 
-## US-CON-01 Record Contribution
-- Given thành viên còn nghĩa vụ 2.000.000 VND, When Organizer ghi nhận đã nhận 1.000.000 VND, Then đã góp=1.000.000, còn thiếu=1.000.000, trạng thái=partial.
-- Lưu người ghi nhận, thời điểm, số tiền, phương thức, ghi chú/mã tham chiếu.
-- Pending không được coi là đã góp.
+## Vote
+- Given active eligible poll, when member submits allowed vote, then vote is stored once and result count updates.
+- Given closed poll or ineligible user, when voting, then action is rejected with reason.
+- Given poll result, then it is not treated as final itinerary until Organizer confirms.
 
-## US-EXP-01 Add Expense
-- Given tên hợp lệ và số tiền >0, When Organizer lưu, Then khoản chi được ghi nhận.
-- Given chi chung 1.200.000 VND áp dụng cho 4 người, Then mỗi phần=300.000 VND.
-- Tổng phần phân bổ phải khớp khoản chi sau quy tắc làm tròn.
+## Budget/fund/split
+- Given Organizer creates fund with eligible members, then each obligation is generated according to approved rule.
+- Given manual contribution is recorded, then status and evidence/reference are stored; pending verification is excluded from confirmed balance.
+- Given expense split, then allocated shares equal expense total after rounding.
+- Given an expense is edited/voided after confirmation, then system creates reversal/adjustment and audit history rather than deleting ledger history.
+- Given trip is settled, then settlement report shows contributions, expenses, balances and unresolved items; surplus/refund behavior follows PO-approved policy.
 
-## US-SET-01 Settle Fund
-- Given tổng góp xác nhận 8.000.000 và chi 6.000.000, When quyết toán, Then số dư=2.000.000.
-- Given còn giao dịch pending/khoản chi chưa xử lý, When quyết toán, Then cảnh báo và yêu cầu xử lý.
-- Sau settled, không thêm chi trừ khi mở lại theo policy.
+## Booking
+- Given provider offers, when user opens results, then currency, terms, provider and update time are shown where available.
+- Given affiliate click-out, then app labels it as external booking and does not show confirmed status.
+- Given in-app booking request succeeds at provider, then booking reference/status are persisted server-side.
+- Given timeout/unknown provider response, then app shows pending verification and checks status before allowing a retry.
+- Given provider does not support in-app booking, then the in-app purchase action is unavailable and click-out may be offered.
 
-## US-PAY-01 Online Payment – future
-- Chỉ backend xác thực mới cập nhật góp.
-- Webhook lặp không tạo cộng tiền lặp.
-- Lỗi/hủy/pending không tăng số dư.
-- Không nhận trạng thái thành công chỉ từ client.
+## Payment
+- Given payment is pending/failed/cancelled, then fund confirmed balance is unchanged.
+- Given valid verified payment event, then contribution is confirmed exactly once.
+- Given duplicate webhook, then ledger is not incremented twice.
+- Given refund, then refund is linked to original payment and reflected only after verified status.
 
-## Definition of Ready
-Có mô tả giá trị; Acceptance Criteria kiểm thử được; dependency rõ; design/flow khi cần; Developers ước lượng được.
+## Admin
+- Given non-admin user, when opening admin route/API, then access is denied server-side.
+- Given admin performs sensitive mutation, then actor, action, target, timestamp and outcome are audited.
+- Given admin role lacks permission, then mutation is rejected.
+- Given admin views financial record, then financial ledger is not silently editable.
 
-## Definition of Done – đề xuất
-Code review/merge; test phù hợp; không còn bug nghiêm trọng đã biết; kiểm tra quyền backend/database; tài liệu cập nhật; demo được; PO xác nhận Acceptance Criteria.
+## Offline/location/journal/image/AI
+- Given cached trip offline, then itinerary and saved booking references can be viewed with last-sync timestamp.
+- Given offline financial action, then app blocks it and asks user to reconnect.
+- Given location sharing is off/expired/stopped, then no new location is visible to recipients.
+- Given user uploads image, then validation/consent applies and matches are labeled as suggestions with confidence when available.
+- Given AI returns draft, then user can edit/reject; no booking/payment action occurs without explicit confirmation.
+- Given AI/provider failure, then user receives clear error/fallback and no duplicate records are created.

@@ -1,48 +1,69 @@
 # Business Rules
 
-> Baseline đề xuất, chờ PO duyệt.
+> Baseline đề xuất; rules marked TBD require PO/legal/provider confirmation.
 
-## Trip
-- BR-TRIP-01: Ngày kết thúc >= ngày bắt đầu.
-- BR-TRIP-02: Mỗi chuyến có một Owner.
-- BR-TRIP-03: Người ngoài không đọc được chuyến riêng tư.
-- BR-TRIP-04: Chỉ Owner/role được cấp quyền mới được sửa.
+## Trip & collaboration
+- BR-TRIP-01: End date >= start date.
+- BR-TRIP-02: Each trip has one owner/Organizer at a time.
+- BR-TRIP-03: Private trip data is visible only to authorized members.
+- BR-TRIP-04: Permission checks run server-side; UI hiding is not authorization.
+- BR-COL-01: Invite token is random, expiring, revocable and single-use or explicitly reusable by policy.
+- BR-VOTE-01: Only active trip members can vote.
+- BR-VOTE-02: Vote eligibility, single/multi-select and close time are stored with poll.
+- BR-VOTE-03: Poll result is advisory; Organizer records final decision.
 
-## Itinerary
-- BR-ITN-01: Mỗi mục thuộc một ngày của một chuyến.
-- BR-ITN-02: Ngày thuộc khoảng thời gian chuyến, trừ ngoại lệ được duyệt.
-- BR-ITN-03: Chỉ role có quyền mới thêm/sửa/xóa.
-- BR-ITN-04: Thứ tự hiển thị ổn định.
+## Discovery & content
+- BR-PLC-01: Provider-owned facts retain provider ID/source and fetched_at.
+- BR-PLC-02: Price, opening hours, rating and availability show freshness where known.
+- BR-PLC-03: Do not present provider data as verified by TravelGo unless verification process exists.
+- BR-PLC-04: User-submitted content is moderated under a published policy.
+- BR-IMG-01: Image match is a suggestion, not definitive identification; user confirms result.
 
-## Group fund – theo quyết định định hướng hiện tại
-- BR-FUND-01: Mỗi chuyến tối đa một quỹ active.
-- BR-FUND-02: Chỉ Organizer quản lý quỹ.
-- BR-FUND-03: Mức góp mặc định bằng nhau giữa thành viên thuộc danh sách đóng góp.
-- BR-FUND-04: Chưa chốt Organizer có phải góp như Member không.
-- BR-FUND-05: Trạng thái góp: unpaid, partial, paid; chỉ cập nhật từ thông tin hợp lệ.
-- BR-FUND-06: Tổng góp không vượt nghĩa vụ nếu chưa có policy xử lý đóng dư.
-- BR-FUND-07: Khoản chi chung chia đều cho danh sách người chịu chi phí.
-- BR-FUND-08: Khoản chi cá nhân không tự động đưa vào quỹ.
-- BR-FUND-09: Số dư = tổng góp xác nhận − tổng chi quỹ xác nhận.
-- BR-FUND-10: Mọi sửa/hủy giao dịch lưu lịch sử.
-- BR-FUND-11: Không xóa giao dịch đã xác nhận; dùng void/reversal có audit.
-- BR-FUND-12: Quỹ settled không nhận chi mới nếu chưa mở lại đúng quy trình.
+## Booking
+- BR-BOOK-01: Booking options are shown only when provider returns them.
+- BR-BOOK-02: Price/availability may change until provider confirms booking.
+- BR-BOOK-03: In-app booking requires approved provider API/contract and supported cancellation/refund flow.
+- BR-BOOK-04: Booking state is based on provider response/status lookup, not client assertion.
+- BR-BOOK-05: Store provider booking reference and terms snapshot where contract permits.
+- BR-BOOK-06: Affiliate click-out is not a confirmed booking.
+- BR-BOOK-07: Timeout/unknown response requires status reconciliation before retry.
 
-## Payment – giai đoạn sau
-- BR-PAY-01: Mỗi giao dịch có mã duy nhất.
-- BR-PAY-02: Chỉ backend xác nhận thành công sau khi kiểm tra provider.
-- BR-PAY-03: Webhook lặp không cộng tiền hai lần.
-- BR-PAY-04: Pending/failed/cancelled không tăng số dư.
-- BR-PAY-05: Refund liên kết giao dịch gốc và trạng thái riêng.
-- BR-PAY-06: Không lưu dữ liệu thẻ nhạy cảm.
-- BR-PAY-07: Không mặc định TravelGo được giữ tiền/vận hành ví; cần rà soát đối tác và pháp lý.
+## Fund, expenses & split
+- BR-FUND-01: At most one active fund per trip unless PO approves multiple funds.
+- BR-FUND-02: Only Organizer manages fund in baseline.
+- BR-FUND-03: Equal contribution is default; eligible member set and exceptions must be explicit.
+- BR-FUND-04: Organizer contribution obligation remains TBD.
+- BR-FUND-05: Contribution statuses: due, partial, paid, pending_verification, failed, refunded, void.
+- BR-FUND-06: Only confirmed contributions increase confirmed fund balance.
+- BR-FUND-07: Shared expense is allocated only to selected participants.
+- BR-FUND-08: Split shares must sum exactly to expense total after rounding adjustment.
+- BR-FUND-09: Personal expense is excluded from group fund unless explicitly shared.
+- BR-FUND-10: Balance = confirmed contributions − confirmed fund expenses − confirmed refunds/adjustments as ledger entries.
+- BR-FUND-11: Confirmed financial entries are immutable; corrections use reversal/adjustment with audit.
+- BR-FUND-12: End-of-trip surplus/deficit policy is TBD; do not auto-refund or collect extra without approval.
+- BR-FUND-13: Every financial mutation has actor, timestamp, reason and audit record.
+
+## Payment
+- BR-PAY-01: Client never marks online payment successful by itself.
+- BR-PAY-02: Backend verifies provider callback/signature and queries status when required.
+- BR-PAY-03: Webhook/event processing is idempotent.
+- BR-PAY-04: Pending/failed/cancelled transactions do not increase confirmed balance.
+- BR-PAY-05: Refund references original transaction and has independent status.
+- BR-PAY-06: Do not store raw card credentials or provider secrets in client.
+- BR-PAY-07: TravelGo does not assume it may hold customer funds or operate a wallet; legal/provider model requires review.
+- BR-PAY-08: QR transfer is not automatically confirmed unless provider/bank reconciliation supports it.
+
+## Admin & privacy
+- BR-ADM-01: Admin roles follow least privilege and separation of duties.
+- BR-ADM-02: Sensitive admin actions require audit logs; high-risk actions may require re-auth/approval.
+- BR-ADM-03: Admin access to private user data is purpose-limited and audited.
+- BR-LOC-01: Location sharing is opt-in, audience-scoped, time-limited and stoppable.
+- BR-LOC-02: Do not expose precise location to non-authorized members or admins by default.
+- BR-OFF-01: Cached data is labeled with last sync time; server remains source of truth.
+- BR-OFF-02: Offline edits must resolve conflicts; financial/payment actions are online-only.
+- BR-AI-01: AI output is advisory and must be user-reviewed before persistence/action.
+- BR-AI-02: AI must not invent live price, availability, hours or booking confirmation.
+- BR-AI-03: Respect safety constraints and user preferences; expose uncertainty.
 
 ## Open decisions
-1. Organizer có phải góp không?
-2. Thành viên mới vào quỹ xử lý mức góp thế nào?
-3. Thành viên rời nhóm xử lý nghĩa vụ ra sao?
-4. Đóng dư xử lý thế nào?
-5. Tiền dư cuối chuyến hoàn đều hay theo khoản góp?
-6. Quỹ thiếu tiền có được yêu cầu góp thêm?
-7. Có được đổi mức góp sau khi đã có giao dịch?
-8. Chia đều có ngoại lệ cho trẻ em/người không tham gia không?
+Organizer contribution; member join/leave; children/exemptions; surplus/deficit; change contribution after payment; currencies/rounding; booking provider/cancellation; payment provider/legal model; admin role taxonomy; location retention; image retention; offline conflict policy; AI provider/cost/data retention.
